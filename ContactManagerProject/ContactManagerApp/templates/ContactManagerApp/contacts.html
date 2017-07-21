@@ -1,0 +1,57 @@
+{% extends 'ContactManagerApp/layout.html' %}
+ {% block content %}
+<script>
+    function deleteContact(id) {
+        if (confirm("are you sure to delete")) {
+            document.getElementById("myForm").action = "/DeleteContact/" + id;
+        }
+    }
+    function searchContact(searchWord) {
+        document.getElementById("myForm").action = "/searchContact/" + searchWord.value;
+    }
+</script>
+<form class="form_css" id="myForm">
+     {% csrf_token %}
+         <div class="div_css">
+   <table align="center" class="table table-striped tableClass">        
+         <thead>
+             <tr  class="contactManager" >
+                 <td colspan="5" align="center">
+                  Contact Manager
+                 </td>
+             </tr>
+             <tr>
+                 <td colspan="2">
+                      <button formaction="/AddContact" class="btn btn-primary btn-lg buttonAdd">Add</button><br/><br/>
+                 </td>
+                 <td colspan="3">
+                    <input type="text" name="search" placeholder="Search.." class="searchClass" onclick="searchContact(search)" formmethod="POST"/>
+                 </td>
+             </tr>
+         <tr>
+           <th>Action</th>
+           <th>First Name</th>
+           <th>Last Name</th>
+           <th>Email</th>
+           <th>Mobile</th>
+         </tr>
+             
+         </thead>
+         <tbody>
+           {% for Item in ListOfContact %}
+           <tr>
+               <!--<td>{{forloop.counter}}</td>-->
+              <td><button type="submit" formmethod="get" formaction="/EditContact/{{Item.SerialNo}}" class="EditImage"></button> 
+               <button type="submit" formmethod="get" onclick="deleteContact('{{Item.SerialNo}}')" class="DeleteImage"></button></td>
+             <td>{{Item.FirstName}}</td>
+             <td>{{Item.LastName}}</td>
+             <td>{{Item.Email}}</td>
+             <td>{{Item.MobileNo}}</td>
+             
+           {% endfor %}
+         </tbody>
+       </table>
+             </div>
+         
+ </form>
+{% endblock %}
