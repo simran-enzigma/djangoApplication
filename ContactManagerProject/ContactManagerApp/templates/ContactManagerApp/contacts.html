@@ -7,7 +7,11 @@
         }
     }
     function searchContact(searchWord) {
-        document.getElementById("myForm").action = "/searchContact/" + searchWord.value;
+        setTimeout(function () {
+            document.getElementById("myForm").action = "/searchContact/" + searchWord.value;
+            document.getElementById("myForm").submit();
+        }, 3000);
+       
     }
 </script>
 <form class="form_css" id="myForm">
@@ -25,7 +29,7 @@
                       <button formaction="/AddContact" class="btn btn-primary btn-lg buttonAdd">Add</button><br/><br/>
                  </td>
                  <td colspan="3">
-                    <input type="text" name="search" placeholder="Search.." class="searchClass" onclick="searchContact(search)" formmethod="POST"/>
+                    <input type="text" name="search" placeholder="Search.." class="searchClass" onclick="searchContact(search)" formmethod="get"/>
                  </td>
              </tr>
          <tr>

@@ -40,6 +40,10 @@ def AddContact(request):
     return EditContact(request,None)
 
 def searchContact(request,search):
-     if(request.method=='POST'):
-         result = Contact.objects.all.filter(FirstName__contains=search)
-         return render(request,'ContactManagerApp/contacts.html',{'ListOfContact':result})
+     if(request.method=='GET'):
+         if(search==None):
+             result = Contact()
+             result = Contact.objects.all()
+         else:
+             result = Contact.objects.filter(FirstName__contains=search)
+     return render(request,'ContactManagerApp/contacts.html',{'ListOfContact':result})
