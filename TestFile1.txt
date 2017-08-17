@@ -1,1 +1,2 @@
 TestFile1
+AddedText2
